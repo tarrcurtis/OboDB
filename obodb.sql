@@ -39,8 +39,8 @@ drop user if exists 'talentManager'@'%';
     `EndDate` date NOT NULL,
     PRIMARY KEY (`EmployeeID`,`ProjectID`,`StartDate`),
     KEY `ProjectID` (`ProjectID`),
-    CONSTRAINT `assignment_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `Employee` (`EmployeeID`),
-    CONSTRAINT `assignment_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `Project` (`ProjectID`)
+    CONSTRAINT `assignment_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `Employee` (`ID`),
+    CONSTRAINT `assignment_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `Project` (`ID`)
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
   /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -62,15 +62,18 @@ DROP TABLE IF EXISTS `department`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `department` (
-  `DepartmentID` tinyint(4) NOT NULL AUTO_INCREMENT,
-  `Department Name` varchar(30) NOT NULL,
-  PRIMARY KEY (`DepartmentID`)
+  `ID` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `Name` varchar(30) NOT NULL,
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `department` WRITE;
 /*!40000 ALTER TABLE `department` DISABLE KEYS */;
-INSERT INTO `department`(`Department Name`) VALUES ('Department of Things');
+INSERT INTO `department`(`Name`) VALUES ('Department of Things');
+INSERT INTO `department`(`Name`) VALUES ('Sales');
+INSERT INTO `department`(`Name`) VALUES ('HR');
+INSERT INTO `department`(`Name`) VALUES ('Development');
 /*!40000 ALTER TABLE `department` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -94,16 +97,16 @@ DROP TABLE IF EXISTS `employee`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `employee` (
-  `EmployeeID` smallint(6) NOT NULL AUTO_INCREMENT,
+  `ID` smallint(6) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
   `DepartmentID` tinyint(4) NOT NULL,
   `Address` varchar(100) NOT NULL,
   `NIN` char(9) NOT NULL,
-  `Bank Number` varchar(34) NOT NULL,
-  `Starting Salary` int(11) NOT NULL,
-  PRIMARY KEY (`EmployeeID`),
-  KEY `DepartmentID` (`DepartmentID`),
-  CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`DepartmentID`) REFERENCES `department` (`DepartmentID`)
+  `BankNumber` varchar(34) NOT NULL,
+  `StartingSalary` int(11) NOT NULL,
+  PRIMARY KEY (`ID`),
+  KEY `DepartmentID` (`ID`),
+  CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`DepartmentID`) REFERENCES `department` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -126,9 +129,9 @@ DROP TABLE IF EXISTS `project`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `project` (
-  `ProjectID` smallint(6) NOT NULL AUTO_INCREMENT,
+  `ID` smallint(6) NOT NULL AUTO_INCREMENT,
   `ProjectName` varchar(30) NOT NULL,
-  PRIMARY KEY (`ProjectID`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -154,7 +157,7 @@ CREATE TABLE `salesEmployee` (
   `CommissionRate` float NOT NULL,
   `TotalSales` bigint(20) NOT NULL,
   KEY `EmployeeID` (`EmployeeID`),
-  CONSTRAINT `salesemployee_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `Employee` (`EmployeeID`)
+  CONSTRAINT `salesemployee_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `Employee` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
