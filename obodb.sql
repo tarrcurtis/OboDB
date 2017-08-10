@@ -29,6 +29,13 @@ CREATE TABLE `department` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+LOCK TABLES `department` WRITE;
+/*!40000 ALTER TABLE `department` DISABLE KEYS */;
+INSERT INTO `department`(`Department Name`) VALUES ('Department of Things');
+/*!40000 ALTER TABLE `department` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
 --
 -- Dumping data for table `department`
 --
@@ -48,11 +55,13 @@ DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee` (
   `EmployeeID` smallint(6) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL,
+  `DepartmentID` tinyint not null,
   `Address` varchar(100) NOT NULL,
   `NIN` char(9) NOT NULL,
   `Bank Number` varchar(34) NOT NULL,
   `Starting Salary` int(11) NOT NULL,
-  PRIMARY KEY (`EmployeeID`)
+  PRIMARY KEY (`EmployeeID`),
+  foreign key (DepartmentID) references departments(DepartmentID)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -62,7 +71,7 @@ CREATE TABLE `employee` (
 
 LOCK TABLES `employee` WRITE;
 /*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-INSERT INTO `employee` VALUES (1,'Johnny Test','Some Address','SD23GH45G','234a456',100000);
+INSERT INTO `employee` VALUES (1,'Johnny Test',1,'Some Address','SD23GH45G','234a456',100000);
 /*!40000 ALTER TABLE `employee` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
