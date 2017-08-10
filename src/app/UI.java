@@ -58,6 +58,7 @@ public class UI {
 		System.out.println("1. New employee");
 		System.out.println("2. New sales employee");
 		System.out.println("3. HR report");
+		System.out.println("4. Finance report");
 		int x = s.nextInt();
 		
 		switch (x) {
@@ -68,6 +69,9 @@ public class UI {
 			this.newSalesEmployee();
 		case 3:
 			this.hrReport();
+			break;
+		case 4:
+			this.financeReport();
 			break;
 		default:
 			System.out.println("Invalid option");
@@ -157,5 +161,19 @@ public class UI {
 	
 		this.menu();
 	}
+	
+	private void financeReport(){
+	    
+        System.out.println("Finance Report (Employee ID, Name, Starting Salary, Gross Pay)");
+        try{
+            db.generateFinanceReport();
+            db.generateFinancialReportSalesEmployees();
+        }
+        catch (SQLException e3){
+            System.out.println(e3.getMessage());
+        }
+        
+        this.menu();
+    }
 
 }

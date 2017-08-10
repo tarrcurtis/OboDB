@@ -54,13 +54,48 @@ public class Database {
 	}
 
 	public void showAllDepartments() throws SQLException {
+	          Statement st = c.createStatement();
+	          ResultSet rs = st.executeQuery("SELECT `ID`, `Name` FROM department;");
+	          while (rs.next()) {
+	             String out = rs.getString("ID");
+	             String outName = rs.getString("Name");
+	              System.out.println(out + " - " + outName);
+	          }
+	    }
+
+	public void generateFinanceReport() throws SQLException {
 		Statement st = c.createStatement();
-		ResultSet rs = st.executeQuery("SELECT `ID`, `Name` FROM department;");
+		ResultSet rs = st.executeQuery("SELECT `ID`, `Name`, `StartingSalary` FROM employee WHERE ID NOT IN ("
+				+ "SELECT EmployeeID FROM salesEmployee);");
 		while (rs.next()) {
 			String out = rs.getString("ID");
 			String outName = rs.getString("Name");
-			System.out.println(out + " - " + outName);
+			String temp = rs.getString("StartingSalary");
+			int temp1 = Integer.parseInt(temp);
+			int temp2 = (int) (temp1 * 0.75);
+			System.out.println(out + " - " + outName + " - " + temp + " " + temp2);
 		}
+
+	}
+
+	public void generateFinancialReportSalesEmployees() throws SQLException {
+		Statement st = c.createStatement();
+		ResultSet rs = st.executeQuery(
+				"SELECT `EmployeeID`, `Name`, `StartingSalary`, `CommissionRate`, `TotalSales` FROM employee"
+						+ " INNER JOIN salesEmployee ON employee.ID = salesEmployee.EmployeeID;");
+		while (rs.next()) {
+			String out = rs.getString("EmployeeID");
+			String outName = rs.getString("Name");
+			String temp = rs.getString("StartingSalary");
+			String comm = rs.getString("CommissionRate");
+			String sales = rs.getString("TotalSales");
+			int temp1 = Integer.parseInt(temp);
+			int comm1 = Integer.parseInt(comm);
+			int sales2 = Integer.parseInt(sales);
+			int temp2 = (int) ((temp1 * 0.75) + (comm1 * sales2));
+			System.out.println(out + " - " + outName + " " + temp + " - " + temp2);
+		}
+
 	}
 
 }
