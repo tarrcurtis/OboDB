@@ -38,9 +38,8 @@ drop user if exists 'talentManager'@'%';
     `StartDate` date NOT NULL,
     `EndDate` date NOT NULL,
     PRIMARY KEY (`EmployeeID`,`ProjectID`,`StartDate`),
-    KEY `ProjectID` (`ProjectID`),
-    CONSTRAINT `assignment_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `Employee` (`ID`),
-    CONSTRAINT `assignment_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `Project` (`ID`)
+    CONSTRAINT `assignment_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employee` (`ID`),
+    CONSTRAINT `assignment_ibfk_2` FOREIGN KEY (`ProjectID`) REFERENCES `project` (`ID`)
   ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
   /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -105,7 +104,6 @@ CREATE TABLE `employee` (
   `BankNumber` varchar(34) NOT NULL,
   `StartingSalary` int(11) NOT NULL,
   PRIMARY KEY (`ID`),
-  KEY `DepartmentID` (`ID`),
   CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`DepartmentID`) REFERENCES `department` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -156,8 +154,7 @@ CREATE TABLE `salesEmployee` (
   `EmployeeID` smallint(6) NOT NULL,
   `CommissionRate` float NOT NULL,
   `TotalSales` bigint(20) NOT NULL,
-  KEY `EmployeeID` (`EmployeeID`),
-  CONSTRAINT `salesemployee_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `Employee` (`ID`)
+  CONSTRAINT `salesemployee_ibfk_1` FOREIGN KEY (`EmployeeID`) REFERENCES `employee` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
