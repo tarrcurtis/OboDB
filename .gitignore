@@ -1,6 +1,9 @@
 
 # Created by https://www.gitignore.io/api/eclipse
 
+### Mac ##
+.DS_Store
+
 ### Eclipse ###
 
 .metadata
