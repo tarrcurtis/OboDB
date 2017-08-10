@@ -19,6 +19,8 @@ public class UI {
 		System.out.println("Username:");
 		String user = s.nextLine();
 		System.out.println("Password:");
+//		char passArray[] = System.console().readPassword("Pasword:");
+//		String pass = new String(passArray);
 		String pass = s.nextLine();
 		try {
 			db.connect(user, pass, "192.168.1.215");
@@ -54,7 +56,8 @@ public class UI {
 		System.out.println();
 		System.out.println("Please select an operation");
 		System.out.println("1. New employee");
-		System.out.println("2. HR report");
+		System.out.println("2. New sales employee");
+		System.out.println("3. HR report");
 		int x = s.nextInt();
 		
 		switch (x) {
@@ -62,6 +65,8 @@ public class UI {
 			this.newEmployee();
 			break;
 		case 2:
+			this.newSalesEmployee();
+		case 3:
 			this.hrReport();
 			break;
 		default:
@@ -87,8 +92,8 @@ public class UI {
 		try{
 		db.showAllDepartments();
 		}
-		catch (SQLException e3){
-			System.out.println(e3.getMessage());
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
 		}
 		
 		int dept = s.nextInt();
@@ -96,9 +101,44 @@ public class UI {
 		try {
 			db.newEmployee(name, address, nin, bankNo, salary, dept);
 			System.out.println("Employee added succesfully");
-			//db.hrReport();
-		} catch (SQLException e3){
-			System.out.println(e3.getMessage());
+		} catch (SQLException e2){
+			System.out.println(e2.getMessage());
+		}
+		
+		this.menu();
+	}
+	
+	private void newSalesEmployee() {
+		System.out.println("Please insert a new employee");
+		System.out.println("name:");
+		Scanner s = new Scanner(System.in);
+		String name = s.nextLine();
+		System.out.println("address:");
+		String address = s.nextLine();
+		System.out.println("nin:");
+		String nin = s.nextLine();
+		System.out.println("bank number:");
+		String bankNo = s.nextLine();
+		System.out.println("salary:");
+		int salary = s.nextInt();
+		System.out.println("Which department is " + name + " in? Select integer value: ");
+		try{
+		db.showAllDepartments();
+		}
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
+		}
+		int dept = s.nextInt();
+		System.out.println("commision:");
+		float commission = s.nextFloat();
+		System.out.println("total sales:");
+		int sales = s.nextInt();
+		
+		try {
+			db.newSalesEmployee(name, address, nin, bankNo, salary, dept, commission, sales);
+			System.out.println("Employee added succesfully");
+		} catch (SQLException e2){
+			System.out.println(e2.getMessage());
 		}
 		
 		this.menu();
@@ -111,8 +151,8 @@ public class UI {
 		try{
 		db.hrReportByDepartment(dept);
 		}
-		catch (SQLException e3){
-			System.out.println(e3.getMessage());
+		catch (SQLException e1){
+			System.out.println(e1.getMessage());
 		}
 	
 		this.menu();
