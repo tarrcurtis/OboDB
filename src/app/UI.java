@@ -59,6 +59,7 @@ public class UI {
 		System.out.println("2. New sales employee");
 		System.out.println("3. HR report");
 		System.out.println("4. Finance report");
+		System.out.println("5. Find highest seller");
 		int x = s.nextInt();
 		
 		switch (x) {
@@ -72,6 +73,9 @@ public class UI {
 			break;
 		case 4:
 			this.financeReport();
+			break;
+		case 5:
+			this.salesReport();
 			break;
 		default:
 			System.out.println("Invalid option");
@@ -175,5 +179,17 @@ public class UI {
         
         this.menu();
     }
+	
+	private void salesReport() {
+		
+        try{
+            db.generateHighestSales();
+        }
+        catch (SQLException e3){
+            System.out.println(e3.getMessage());
+        }
+        
+        this.menu();
+	}
 
 }

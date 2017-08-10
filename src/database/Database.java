@@ -97,5 +97,19 @@ public class Database {
 		}
 
 	}
+	
+	public void generateHighestSales() throws SQLException {
+		Statement st = c.createStatement();
+		ResultSet rs = st.executeQuery(
+				"select `EmployeeID`, `Name`, `TotalSales` FROM salesEmployee INNER JOIN employee ON salesEmployee.EmployeeID = employee.ID ORDER BY `TotalSales` DESC LIMIT 1;");
+		while (rs.next()) {
+			String out = rs.getString("EmployeeID");
+			String outName = rs.getString("Name");
+			String outSales = rs.getString("TotalSales");
+			
+			System.out.println(out + " - " + outName + " - " + outSales);
+		}
+
+	}
 
 }
