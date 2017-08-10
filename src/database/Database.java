@@ -10,10 +10,10 @@ public class Database {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void connect(String user, String pass) throws ClassNotFoundException, SQLException {
+	public void connect(String user, String pass, String host) throws ClassNotFoundException, SQLException {
 		
 		Class driver = Class.forName("com.mysql.jdbc.Driver");
-        c = DriverManager.getConnection("jdbc:mysql://localhost/obodb?autoReconnect=true&useSSL=false", user, pass);
+        c = DriverManager.getConnection("jdbc:mysql://"+ host +"/obodb?autoReconnect=true&useSSL=false", user, pass);
 	}
 	
 	public void newEmployee(String name, String address, String nin, String bankNo, int salary) throws SQLException {
