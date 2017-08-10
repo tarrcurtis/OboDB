@@ -21,19 +21,24 @@ public class UI {
 		System.out.println("Password:");
 		String pass = s.nextLine();
 		try {
-			db.connect(user, pass, "localhost");
+			db.connect(user, pass, "192.168.1.215");
+			System.out.println("c server: ");
 			this.menu();
-		} catch (ClassNotFoundException e1) {
+		} 
+		catch (ClassNotFoundException e1) {
 			
-		} catch (SQLException e2) {
+		} 
+		catch (SQLException e2) {
 			try {
 				db.connect(user, pass, "192.168.1.201");
+				System.out.println("n server: ");
 				this.menu();
 			} catch (ClassNotFoundException e3) {
 				
 			} catch (SQLException e4) {
 				try {
 					db.connect(user, pass, "192.168.1.102");
+					System.out.println("d server: ");
 					this.menu();
 				} catch (ClassNotFoundException e5) {
 					
@@ -78,11 +83,20 @@ public class UI {
 		String bankNo = s.nextLine();
 		System.out.println("salary:");
 		int salary = s.nextInt();
+		System.out.println("Which department is " + name + "in? Select integer value: ");
+		try{
+		db.showAllDepartments();
+		}
+		catch (SQLException e3){
+			System.out.println(e3.getMessage());
+		}
+		
+		int dept = s.nextInt();
 		
 		try {
-			db.newEmployee(name, address, nin, bankNo, salary);
+			db.newEmployee(name, address, nin, bankNo, salary, dept);
 			System.out.println("Employee added succesfully");
-			db.hrReport();
+			//db.hrReport();
 		} catch (SQLException e3){
 			System.out.println(e3.getMessage());
 		}
@@ -92,6 +106,14 @@ public class UI {
 	
 	private void hrReport() {
 		
+		System.out.println("Please enter which department you would like to see: ");
+		int dept = s.nextInt();
+		try{
+		db.hrReportByDepartment(dept);
+		}
+		catch (SQLException e3){
+			System.out.println(e3.getMessage());
+		}
 	
 		this.menu();
 	}
